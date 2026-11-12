@@ -1,0 +1,114 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Contatos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ 
+  
+  <header class="topo">
+    <div class="container">
+      <p class="topo__etiqueta">Projeto da A3 · Garantia da qualidade de software</p>
+      <h1>Gestão de Contatos</h1>
+      <p class="topo__descricao">Cadastre, liste, edite e exclua contatos.</p>
+    </div>
+  </header>
+ 
+  <main class="container">
+ 
+   
+    <div id="mensagem" class="mensagem" role="status" aria-live="polite" hidden></div>
+ 
+   
+    <section class="cartao" aria-labelledby="titulo-form">
+      <div class="cartao__cabecalho">
+        <div>
+          <h2 id="titulo-form">Cadastrar contato</h2>
+          <p class="cartao__subtitulo">Preencha os dados do contato.</p>
+        </div>
+        <span class="selo">Formulário</span>
+      </div>
+ 
+      <form id="form-contato" novalidate>
+       
+        <input type="hidden" id="contato-id">
+ 
+        <div class="grade">
+ 
+          <div class="campo">
+            <label for="nome">Nome *</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" autocomplete="off">
+            <small class="erro" id="erro-nome"></small>
+          </div>
+ 
+          <div class="campo">
+            <label for="email">E-mail *</label>
+            <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" autocomplete="off">
+            <small class="erro" id="erro-email"></small>
+          </div>
+ 
+          <div class="campo">
+            <label for="telefone">Telefone *</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" autocomplete="off">
+            <small class="erro" id="erro-telefone"></small>
+          </div>
+ 
+          <div class="campo">
+            <label for="anoNascimento">Ano de nascimento *</label>
+            <input type="number" id="anoNascimento" name="anoNascimento" placeholder="1990">
+            <small class="erro" id="erro-anoNascimento"></small>
+          </div>
+ 
+        </div>
+ 
+        <div class="acoes-form">
+          <button type="submit" id="btn-salvar" class="botao botao--primario">Salvar contato</button>
+          <button type="button" id="btn-limpar" class="botao botao--secundario">Limpar</button>
+        </div>
+      </form>
+    </section>
+ 
+   
+    <section class="cartao" aria-labelledby="titulo-lista">
+      <div class="cartao__cabecalho">
+        <div>
+          <h2 id="titulo-lista">Contatos cadastrados</h2>
+          <p class="cartao__subtitulo" id="contador">0 registro(s)</p>
+        </div>
+ 
+        <input type="search" id="busca" class="busca" placeholder="Buscar por nome, e-mail ou telefone" aria-label="Buscar contatos">
+      </div>
+ 
+      <div class="tabela-wrapper">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Telefone</th>
+              <th>Ano de nascimento</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="lista-contatos">
+           
+          </tbody>
+        </table>
+      </div>
+ 
+    
+      <p id="vazio" class="vazio">Nenhum contato cadastrado.</p>
+    </section>
+ 
+  </main>
+ 
+  <
+  <script src="validation.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+ 
