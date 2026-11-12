@@ -101,7 +101,7 @@ function tratarEnvio(evento) {
     contatos = contatos.map((c) => (c.id === campoId.value ? { ...c, ...dados } : c));
     mostrarMensagem("Contato atualizado com sucesso.", "sucesso");
   } else {
-    // Cadastro novo
+   
     contatos.push({ id: gerarId(), ...dados });
     mostrarMensagem("Contato cadastrado com sucesso.", "sucesso");
   }
@@ -165,7 +165,7 @@ function criarBotao(texto, acao, id, estilo) {
   botao.type = "button";
   botao.textContent = texto;
   botao.className = "botao botao--pequeno " + estilo;
-  botao.dataset.acao = acao; // "editar" ou "excluir"
+  botao.dataset.acao = acao;
   botao.dataset.id = id;
   return botao;
 }
@@ -175,7 +175,7 @@ function criarLinha(contato) {
 
   [contato.nome, contato.email, contato.telefone, contato.anoNascimento].forEach((valor) => {
     const celula = document.createElement("td");
-    celula.textContent = valor; // textContent evita injetar HTML digitado pelo usuário
+    celula.textContent = valor; 
     linha.appendChild(celula);
   });
 
