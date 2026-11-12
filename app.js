@@ -1,16 +1,8 @@
-/* ==========================================================
-   app.js - lógica da página de Gestão de Contatos
-
-   Faz: cadastrar, listar, buscar, editar e excluir contatos.
-   Usa as funções do validation.js (por isso ele carrega antes).
-   Os contatos ficam salvos no navegador (localStorage), então
-   continuam lá depois de atualizar a página.
-   ========================================================== */
 
 const CHAVE_STORAGE = "contatos";
 const CAMPOS = ["nome", "email", "telefone", "anoNascimento"];
 
-/* ----- Elementos da página (buscados pelos ids do index.html) ----- */
+
 const form = document.getElementById("form-contato");
 const campoId = document.getElementById("contato-id");
 const btnSalvar = document.getElementById("btn-salvar");
@@ -21,13 +13,10 @@ const contador = document.getElementById("contador");
 const textoVazio = document.getElementById("vazio");
 const campoBusca = document.getElementById("busca");
 
-/* ----- Estado: lista de contatos em memória ----- */
 let contatos = carregarContatos();
 let temporizadorMensagem;
 
-/* ==========================================================
-   Armazenamento (localStorage)
-   ========================================================== */
+
 function carregarContatos() {
   try {
     const dados = localStorage.getItem(CHAVE_STORAGE);
@@ -49,9 +38,7 @@ function gerarId() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 }
 
-/* ==========================================================
-   Formulário
-   ========================================================== */
+
 function lerFormulario() {
   return {
     nome: document.getElementById("nome").value.trim(),
@@ -61,8 +48,6 @@ function lerFormulario() {
   };
 }
 
-/* Escreve a mensagem de erro embaixo de cada campo e pinta a borda de vermelho.
-   Se o campo não tem erro, limpa o texto e tira a borda vermelha. */
 function mostrarErros(erros) {
   CAMPOS.forEach((campo) => {
     const mensagem = erros[campo] || "";
@@ -89,16 +74,14 @@ function limparFormulario() {
   btnSalvar.textContent = "Salvar contato";
 }
 
-/* ==========================================================
-   Salvar (cadastrar novo ou atualizar existente)
-   ========================================================== */
+
 function tratarEnvio(evento) {
-  evento.preventDefault(); // impede a página de recarregar
+  evento.preventDefault(); 
 
   const dados = lerFormulario();
-  const erros = validarContato(dados); // vem do validation.js
+  const erros = validarContato(dados); 
 
-  // Não permite dois contatos com o mesmo e-mail
+
   const emailDuplicado = contatos.some(
     (c) => c.email.toLowerCase() === dados.email.toLowerCase() && c.id !== campoId.value
   );
@@ -114,7 +97,7 @@ function tratarEnvio(evento) {
   }
 
   if (campoId.value) {
-    // Edição: troca os dados do contato que já existe
+    
     contatos = contatos.map((c) => (c.id === campoId.value ? { ...c, ...dados } : c));
     mostrarMensagem("Contato atualizado com sucesso.", "sucesso");
   } else {
@@ -128,9 +111,7 @@ function tratarEnvio(evento) {
   renderizarLista();
 }
 
-/* ==========================================================
-   Editar e excluir
-   ========================================================== */
+
 function editarContato(id) {
   const contato = contatos.find((c) => c.id === id);
   if (!contato) return;
@@ -156,16 +137,14 @@ function excluirContato(id) {
   contatos = contatos.filter((c) => c.id !== id);
   salvarContatos();
 
-  // Se estava editando justamente esse contato, limpa o formulário
+
   if (campoId.value === id) limparFormulario();
 
   renderizarLista();
   mostrarMensagem("Contato excluído.", "sucesso");
 }
 
-/* ==========================================================
-   Lista (tabela) e busca
-   ========================================================== */
+
 function filtrarContatos() {
   const termo = campoBusca.value.trim().toLowerCase();
   if (!termo) return contatos;
@@ -229,14 +208,11 @@ function renderizarLista() {
   }
 }
 
-/* ==========================================================
-   Eventos (ligam os elementos da página às funções acima)
-   ========================================================== */
 form.addEventListener("submit", tratarEnvio);
 btnLimpar.addEventListener("click", limparFormulario);
 campoBusca.addEventListener("input", renderizarLista);
 
-// Um único "ouvinte" na tabela cuida de todos os botões Editar/Excluir
+
 corpoTabela.addEventListener("click", (evento) => {
   const botao = evento.target.closest("button[data-acao]");
   if (!botao) return;
@@ -245,5 +221,5 @@ corpoTabela.addEventListener("click", (evento) => {
   if (botao.dataset.acao === "excluir") excluirContato(botao.dataset.id);
 });
 
-/* Desenha a lista assim que a página abre */
+
 renderizarLista();
